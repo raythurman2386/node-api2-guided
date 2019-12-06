@@ -36,6 +36,11 @@ router.post("/", (req, res) => {
     sender: req.body.sender,
     text: req.body.text
   };
+
+  if (!req.body.sender || !req.body.text) {
+    return res.status(400).json({ message: "Need sender and text values" });
+  }
+
   hubs
     .addHubMessage(req.params.id, body)
     .then(data => {
